@@ -1,61 +1,49 @@
 Circular Queue Implementation in C
-This project demonstrates a simple implementation of a circular queue using a static array in C.
+This project provides a simple implementation of a circular queue using an array in the C programming language.
 
-Overview
-The circular queue (also known as a circular buffer or ring buffer) allows efficient memory utilization by treating the buffer as circular. This example uses a fixed-size array and maintains two indices — Front and Rear — to manage the queue operations.
+🚀 Features
+Fixed-size circular queue using an array (#define MAX_SIZE 5)
 
-Features
-Fixed size buffer (MAX_SIZE defined as 5)
+Basic queue operations:
 
-Supports standard queue operations:
+Enqueue – Insert an element at the rear
 
-Enqueue(int val) – Adds an element to the queue
+Dequeue – Remove an element from the front
 
-Dequeue(void) – Removes and returns an element from the queue
+IsQueFull – Check if the queue is full
 
-IsQueFull(void) – Checks if the queue is full
+IsQueEmpty – Check if the queue is empty
 
-IsQueEmpty(void) – Checks if the queue is empty
+Efficient memory usage with circular buffer logic
 
-Data Structure
-c
-Copy
-Edit
-#define MAX_SIZE 5
+Overflow and underflow checks with informative messages
 
-typedef struct {
-    int DataBuff[MAX_SIZE];
-    int Front, Rear;
-} CIR_BUFF;
-DataBuff stores the data.
+🛠️ How It Works
+The queue uses two indices: Front and Rear.
 
-Front and Rear track the start and end of the queue respectively.
+On Enqueue, the element is added at (Rear + 1) % MAX_SIZE.
 
-Function Details
-IsQueFull: Returns 1 if the queue is full, 0 otherwise.
+On Dequeue, the element is removed from Front, and Front is updated using modular arithmetic.
 
-IsQueEmpty: Returns 1 if the queue is empty, 0 otherwise.
+If the queue becomes empty after a Dequeue, both Front and Rear are reset to -1.
 
-Enqueue: Adds a new element to the Rear of the queue. Updates Front if the queue was empty.
+This design allows reuse of array space that becomes free at the front, unlike a linear queue.
 
-Dequeue: Removes and returns the element at the Front. Resets the queue if the last element is dequeued.
+💡 Limitation
+The size is fixed at compile-time (MAX_SIZE = 5).
 
-How to Use
-Compile the code using a C compiler:
+Does not dynamically resize.
 
+No thread safety for concurrent access (can be added with synchronization primitives).
+
+Overflow and underflow only print messages – can be improved by returning error codes.
+
+📂 File Structure
+circular_queue.c – Main C program implementing the circular queue logic.
+
+📦 How to Compile and Run
 bash
 Copy
 Edit
-gcc -o circular_queue circular_queue.c
-Run the executable:
-
-bash
-Copy
-Edit
+gcc circular_queue.c -o circular_queue
 ./circular_queue
-Modify the main function to test the queue operations.
-
-Limitations
-The buffer size is fixed (MAX_SIZE = 5). To support dynamic sizes, the structure and logic need to be modified accordingly.
-
-No thread-safety; intended for single-threaded environments.
